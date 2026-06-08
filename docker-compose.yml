@@ -1,0 +1,37 @@
+# ══════════════════════════════════════════════
+# docker-compose.yml
+# Defines how to run our application
+# ══════════════════════════════════════════════
+
+version: '3.8'
+
+services:
+
+  # Our main application
+  house-price-app:
+    
+    # Build from our Dockerfile
+    build: .
+    
+    # Name the container
+    container_name: indian-house-predictor
+    
+    # Port mapping:
+    # YOUR COMPUTER port 5000 → CONTAINER port 5000
+    # So you visit localhost:5000 to see the app
+    ports:
+      - "5000:5000"
+    
+    # Mount volumes
+    # Your local files → inside container
+    # So changes reflect immediately
+    volumes:
+      - .:/app
+    
+    # Environment variables
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FLASK_ENV=development
+    
+    # Restart if it crashes
+    restart: unless-stopped
